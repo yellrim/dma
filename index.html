@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="infoinput()">정보 입력</button>
+    <button>정보 검색</button>
+    <button>정보 수정</button>
+    <button>정보 삭제</button>
+    <button>전체 출력</button>
+
+    <div id="box" class="box" style="border: 1px soild #000; width: 100%; height: 500px;">
+        <input type="text" id="name">
+        <input type="text" id="num">
+    </div>
+
+    <script>
+
+        let names=[];
+
+        // 정보입력
+        function infoinput(){
+
+            let namevaleu = document.getElementById('name').value;
+            let numvaleu = document.getElementById('num').value;
+            //배열에 저장
+            names.push(name);
+
+            console.log(namevaleu);
+            console.log(numvaleu);
+
+            console.log(names[0]);
+        }
+
+    </script>
+</body>
+</html>
