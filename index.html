@@ -1,41 +1,186 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <button onclick="infoinput()">정보 입력</button>
-    <button>정보 검색</button>
-    <button>정보 수정</button>
-    <button>정보 삭제</button>
-    <button>전체 출력</button>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
+      integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="shortcut icon" href="#" type="image/x-icon" />
+    <title>CRUD</title>
+  </head>
+  <body class="p-3">
+    <!-- 입력 / 검색 -->
+    <div class="d-flex mb-3">
+      <!-- 입력 -->
+      <div class="card col-6 d-flex p-3">
+        <div class="card-header d-flex justify-content-between">
+          <div class="d-flex">
+            <input type="text" id="name" class="form-control w-50" placeholder="이름을 입력하세요" />
+            <input type="text" id="num" class="form-control w-50" placeholder="번호를 입력하세요" />
+          </div>
 
-    <div id="box" class="box" style="border: 1px soild #000; width: 100%; height: 500px;">
-        <input type="text" id="name">
-        <input type="text" id="num">
+          <button class="btn btn-secondary w-25" onclick="infoinput()">정보 입력</button>
+        </div>
+        <div id="infoinput-card" class="card-body"></div>
+      </div>
+      <!-- 검색 -->
+      <div class="card col-6 d-flex p-3">
+        <div class="card-header d-flex justify-content-between">
+          <input type="text" id="search" class="form-control w-50" placeholder="검색어를 입력하세요" />
+          <button class="btn btn-secondary w-25" onclick="infosearch()">정보 검색</button>
+        </div>
+
+        <div id="infosearch-card" class="card-body"></div>
+      </div>
     </div>
 
+    <!-- 수정 / 삭제 -->
+    <div class="d-flex mb-3">
+      <!-- 수정 -->
+      <div class="card col-6 d-flex p-3">
+        <div class="card-header d-flex justify-content-between">
+          <input type="text" id="modify" class="form-control w-25" placeholder="수정 대상을 입력하세요" />
+          <input type="text" id="modifygoname" class="form-control w-25" placeholder="변경할 이름을 입력하세요" />
+          <input type="text" id="modifygonum" class="form-control w-25" placeholder="변경할 번호을 입력하세요" />
+
+          <button class="btn btn-secondary w-25" onclick="infomodify()">정보 수정</button>
+        </div>
+        <div id="infomodify-card" class="card-body"></div>
+      </div>
+
+      <!-- 삭제 -->
+      <div class="card col-6 d-flex p-3">
+        <div class="card-header d-flex justify-content-between">
+          <input type="text" id="delete" class="form-control w-50" placeholder="삭제 대상을 입력하세요" />
+
+          <button class="btn btn-secondary w-25" onclick="infodelete()">정보 삭제</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 전체 출력 -->
+    <div class="card col-6 d-flex p-3">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h2 class="fs-5 m-0">정보 출력</h2>
+        <button class="btn btn-secondary w-25" onclick="infoprint()">전체 출력</button>
+      </div>
+      <div id="infoprint-card" class="card-body"></div>
+    </div>
+
+    <div id="box" class="box" style="border: 1px soild #000; width: 100%; height: 200px"></div>
+    <div id="box2" class="box2"></div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"
+      integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <script>
+      //myStorage = window.sessionStorage;
+      let count = 0;
+      let perwer = [];
 
-        let names=[];
+      class Person {
+        constructor(name, num) {
+          this.name = name;
+          this.num = num;
+        }
+      }
 
-        // 정보입력
-        function infoinput(){
+      for (let i = 0; i < count; i++) {
+        perwer[i] = new Person(name, num);
+      }
 
-            let namevaleu = document.getElementById('name').value;
-            let numvaleu = document.getElementById('num').value;
-            //배열에 저장
-            names.push(name);
+      // 정보입력
+      function infoinput() {
+        let namevaleu = document.getElementById("name").value;
+        let numvaleu = document.getElementById("num").value;
 
-            console.log(namevaleu);
-            console.log(numvaleu);
-
-            console.log(names[0]);
+        if (!namevaleu == "") {
+          perwer[count] = new Person(namevaleu, numvaleu);
+          // sessionStorage.setItem("perwername", perwer[count].name);
+          // perwer[count] = numvaleu;
+          count++;
+          const infodata = document.createElement("p");
+          infodata.innerHTML = "이름 : " + namevaleu + "   |  전화번호 : " + numvaleu + "</br>";
+          document.getElementById("infoinput-card").append(infodata);
+          alert("정보 입력 성공!");
+        } else {
+          alert("정보를 입력하세요!");
         }
 
+        console.log(count);
+        console.log(perwer);
+      }
+
+      // 정보검색
+      function infosearch() {
+        let searchvalue = document.getElementById("search").value;
+        let saveindex = 0;
+        let savecount = 0;
+
+        for (let i = 0; i < count; i++) {
+          if (searchvalue == perwer[i].name) {
+            saveindex = i;
+            savecount = savecount + 1;
+          }
+        }
+
+        if (savecount > 0) {
+          const infodata = document.createElement("p");
+          infodata.innerHTML = "이름 : " + perwer[saveindex].name + "   |  전화번호 : " + perwer[saveindex].num + "</br>";
+          document.getElementById("infosearch-card").append(infodata);
+        } else {
+          alert("검색결과 없음");
+        }
+      }
+
+      // 정보수정
+      function infomodify() {
+        let modifyhvalue = document.getElementById("modify").value;
+        for (let i = 0; i < count; i++) {
+          if (modifyhvalue == perwer[i].name) {
+            perwer[i].name = document.getElementById("modifygoname").value;
+            perwer[i].num = document.getElementById("modifygonum").value;
+
+            console.log("이름 :" + perwer[i].name);
+            console.log("번호 :" + perwer[i].num);
+          } else {
+            alert("일치하는 정보가 없음");
+          }
+        }
+      }
+
+      // 정보삭제
+      function infodelete() {
+        let deletehvalue = document.getElementById("delete").value;
+
+        for (let i = 0; i < count; i++) {
+          if (deletehvalue == perwer[i].name) {
+            delete perwer[i].name;
+            delete perwer[i].num;
+
+            alert("삭제 성공!");
+          }
+        }
+      }
+
+      // 정보 전체 출력
+      function infoprint() {
+        for (let i = 0; i < count; i++) {
+          console.log(perwer[i]);
+          const infodata = document.createElement("p");
+          infodata.innerHTML = "이름 : " + perwer[i].name + "   |  전화번호 : " + perwer[i].num + "</br>";
+          document.getElementById("infoprint-card").append(infodata);
+        }
+      }
     </script>
-</body>
+  </body>
 </html>
